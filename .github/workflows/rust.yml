@@ -11,22 +11,22 @@ env:
 
 jobs:
   ci:
-    name: Build & test (matrix)
+    name: Build & Test (matrix)
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        rust: [ stable, beta, nightly ]
+        rust: [stable, beta, nightly]
 
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
 
-      - name: Setup Rust toolchain
+      - name: Install Rust toolchain
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: ${{ matrix.rust }}
-          components: clippy,rustfmt
+          components: clippy, rustfmt
 
       - name: Cache cargo
         uses: Swatinem/rust-cache@v2
@@ -39,21 +39,21 @@ jobs:
       - name: Test
         run: cargo test --all-targets --verbose
 
-      - name: Clippy
+      - name: Clippy (lint)
         run: cargo clippy --all-targets --all-features -- -D warnings
 
       - name: Format check
         run: cargo fmt --all -- --check
 
   security:
-    name: Security audit (stable)
+    name: Security Audit
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
 
-      - name: Setup Rust (stable)
+      - name: Install Rust (stable)
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
