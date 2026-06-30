@@ -6955,7 +6955,7 @@ mod tests {
     fn border_style_parsed_from_shorthand() {
         use crate::parser::dom::HtmlTag;
         use crate::style::computed::ComputedStyle;
-        use crate::style::computed::{BorderStyle, compute_style_with_context};
+        use crate::style::computed::BorderStyle;
         let parent = ComputedStyle::default();
         let style = crate::style::computed::compute_style(
             HtmlTag::Div,
